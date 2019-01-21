@@ -54,12 +54,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.use(express.static("./uploads/", {
-  extensions: c.admin.allowed
+  extensions: require("./sx/config.json").admin.allowed
 }))
 
 app.use(express.static("./pages/", {
   extensions: [ "html", "css" ],
 }))
+
+// ShareX
+app.use("/sx", require("./sx/app"));
 
 //Routing
 app.get("/", (req, res) =>{

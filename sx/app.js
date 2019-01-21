@@ -1,8 +1,6 @@
 const express = require("express")
+const router = express.Router();
 const fs = require("fs")
-const app = express()
-const bodyParser = require("body-parser")
-const path = require("path")
 const formidable = require("formidable")
 const c = require("./config.json")
 const Eris = require("eris")
@@ -17,10 +15,10 @@ const md = new Remarkable("full", {
 
 // DISCORD BOT SETUP
 let monitorChannel = null
-if(c.discordToken && c.discordToken !== undefined && c.discrdToken !== null) {
+if(c.discordToken && c.discordToken !== undefined && c.discordToken !== null) {
   console.log("Connecting to Discord...")
   let commands = [];
-  fs.readdir("./commands/", (err, files) => {
+  fs.readdir(__dirname + "/commands/", (err, files) => {
     files.forEach(file => {
       if(file.toString().indexOf("_") != 0 && file.toString().includes(".js")){
         commands.push(require(`./commands/${file.toString()}`))
@@ -50,7 +48,7 @@ if(c.discordToken && c.discordToken !== undefined && c.discrdToken !== null) {
 }
 
 // INDEX
-app.get("/", (req, res) => {
+router.get("/", (req, res) => {
   if(fs.existsSync("./pages/index.html")) {
     res.setHeader("Content-Type", "text/html")
     res.write(fs.readFileSync("./pages/index.html"))
@@ -62,7 +60,7 @@ app.get("/", (req, res) => {
   }
 })
 
-app.get("/gallery", (req, res) => {
+router.get("/gallery", (req, res) => {
   if(fs.existsSync("./pages/gallery.html")) {
     res.setHeader("Content-Type", "text/html")
     res.write(fs.readFileSync("./pages/gallery.html"))
@@ -74,7 +72,7 @@ app.get("/gallery", (req, res) => {
   }
 })
 
-app.get("/short", (req, res) => {
+router.get("/short", (req, res) => {
   if(fs.existsSync("./pages/short.html")) {
     res.setHeader("Content-Type", "text/html")
     res.write(fs.readFileSync("./pages/short.html"))
@@ -87,33 +85,33 @@ app.get("/short", (req, res) => {
 })
 
 // ERROR HANDLE EXPLANATION
-app.get("/ERR_FILE_TOO_BIG", (req, res) => {
+router.get("/ERR_FILE_TOO_BIG", (req, res) => {
   res.setHeader("Content-Type", "text/html")
   res.write(fs.readFileSync("./pages/ERR_FILE_TOO_BIG.html"))
   res.end()
 })
-app.get("/ERR_ILLEGAL_FILE_TYPE", (req, res) => {
+router.get("/ERR_ILLEGAL_FILE_TYPE", (req, res) => {
   res.setHeader("Content-Type", "text/html")
   res.write(fs.readFileSync("./pages/ERR_ILLEGAL_FILE_TYPE.html"))
   res.end()
 })
 
 // Version
-app.get("/QWS/version", (req, res) => {
+router.get("/QWS/version", (req, res) => {
   res.setHeader("Content-Type", "text/html")
   res.write("3.0.0")
   res.end()
 })
 
 // 404
-app.get("*", (req, res) => {
+router.get("*", (req, res) => {
   res.setHeader("Content-Type", "text/html")
   res.write(fs.readFileSync("./pages/404.html"))
   res.end()
 })
 
 // URL SHORTENER
-app.post("/api/shortener", (req, res) => {
+router.post("/api/shortener", (req, res) => {
   let form = new formidable.IncomingForm()
   form.parse(req, (err, fields, files) => {
     let userIP = req.headers["x-forwarded-for"] || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
@@ -145,7 +143,7 @@ app.post("/api/shortener", (req, res) => {
 })
 
 // FOR FRONT END SHORTENER PAGE
-app.post("/short", (req, res) => {
+router.post("/short", (req, res) => {
   res.setHeader("Content-Type", "text/text");
   let fileName = randomToken(4)
   if(req.body.URL == undefined || req.body.URL == "" || req.body.URL == null) {
@@ -164,7 +162,7 @@ app.post("/short", (req, res) => {
 });
 
 // GALLERY
-app.post("/gallery", (req, res) => {
+router.post("/gallery", (req, res) => {
   res.setHeader("Content-Type", "text/html");
   let password = c.admin.key
   if(req.body.password !== password) {
@@ -186,7 +184,7 @@ app.post("/gallery", (req, res) => {
 });
 
 // PASTE ENDPOINT
-app.post("/api/paste", (req, res) => {
+router.post("/api/paste", (req, res) => {
   res.setHeader("Content-Type", "text/text")
   let fileName = randomToken(5) // 916,132,832 possible file names
   let form = new formidable.IncomingForm()
@@ -233,7 +231,7 @@ app.post("/api/paste", (req, res) => {
 })
 
 // FILE UPLOADER
-app.post("/api/files", (req, res) => {
+router.post("/api/files", (req, res) => {
   res.setHeader("Content-Type", "text/text")
   let fileName = randomToken(6) // 56,800,235,584 possible file names
   let form = new formidable.IncomingForm()
@@ -334,3 +332,5 @@ function auth(req, res, myKey, givenKey, ip) {
 
 process.on("unhandledRejection", reason => console.log(reason));
 process.on("uncaughtException", err => console.log(err));
+
+module.exports = router;
