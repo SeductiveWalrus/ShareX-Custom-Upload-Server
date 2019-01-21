@@ -49,37 +49,37 @@ if(c.discordToken && c.discordToken !== undefined && c.discordToken !== null) {
 
 // INDEX
 router.get("/", (req, res) => {
-  if(fs.existsSync("./pages/index.html")) {
+  if(fs.existsSync(__dirname + "/pages/index.html")) {
     res.setHeader("Content-Type", "text/html")
-    res.write(fs.readFileSync("./pages/index.html"))
+    res.write(fs.readFileSync(__dirname + "/pages/index.html"))
     res.end()
   } else {
     res.setHeader("Content-Type", "text/html")
-    res.write(fs.readFileSync("./pages/404.html"))
+    res.write(fs.readFileSync(__dirname + "/pages/404.html"))
     res.end()
   }
 })
 
 router.get("/gallery", (req, res) => {
-  if(fs.existsSync("./pages/gallery.html")) {
+  if(fs.existsSync(__dirname + "/pages/gallery.html")) {
     res.setHeader("Content-Type", "text/html")
-    res.write(fs.readFileSync("./pages/gallery.html"))
+    res.write(fs.readFileSync(__dirname + "/pages/gallery.html"))
     res.end()
   } else {
     res.setHeader("Content-Type", "text/html")
-    res.write(fs.readFileSync("./pages/404.html"))
+    res.write(fs.readFileSync(__dirname + "/pages/404.html"))
     res.end()
   }
 })
 
 router.get("/short", (req, res) => {
-  if(fs.existsSync("./pages/short.html")) {
+  if(fs.existsSync(__dirname + "/pages/short.html")) {
     res.setHeader("Content-Type", "text/html")
-    res.write(fs.readFileSync("./pages/short.html"))
+    res.write(fs.readFileSync(__dirname + "/pages/short.html"))
     res.end()
   } else {
     res.setHeader("Content-Type", "text/html")
-    res.write(fs.readFileSync("./pages/404.html"))
+    res.write(fs.readFileSync(__dirname + "/pages/404.html"))
     res.end()
   }
 })
@@ -87,12 +87,12 @@ router.get("/short", (req, res) => {
 // ERROR HANDLE EXPLANATION
 router.get("/ERR_FILE_TOO_BIG", (req, res) => {
   res.setHeader("Content-Type", "text/html")
-  res.write(fs.readFileSync("./pages/ERR_FILE_TOO_BIG.html"))
+  res.write(fs.readFileSync(__dirname + "/pages/ERR_FILE_TOO_BIG.html"))
   res.end()
 })
 router.get("/ERR_ILLEGAL_FILE_TYPE", (req, res) => {
   res.setHeader("Content-Type", "text/html")
-  res.write(fs.readFileSync("./pages/ERR_ILLEGAL_FILE_TYPE.html"))
+  res.write(fs.readFileSync(__dirname + "/pages/ERR_ILLEGAL_FILE_TYPE.html"))
   res.end()
 })
 
@@ -106,7 +106,7 @@ router.get("/QWS/version", (req, res) => {
 // 404
 router.get("*", (req, res) => {
   res.setHeader("Content-Type", "text/html")
-  res.write(fs.readFileSync("./pages/404.html"))
+  res.write(fs.readFileSync(__dirname + "/pages/404.html"))
   res.end()
 })
 
@@ -166,7 +166,7 @@ router.post("/gallery", (req, res) => {
   res.setHeader("Content-Type", "text/html");
   let password = c.admin.key
   if(req.body.password !== password) {
-    res.write(fs.readFileSync("./pages/unauthorized.html"))
+    res.write(fs.readFileSync(__dirname + "/pages/unauthorized.html"))
     return res.end()
   }
   let pics = [];
