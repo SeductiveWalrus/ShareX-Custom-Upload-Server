@@ -170,12 +170,12 @@ router.post("/gallery", (req, res) => {
     return res.end()
   }
   let pics = [];
-  fs.readdir("./uploads/", (err, files) => {
+  fs.readdir(__dirname + "/uploads/", (err, files) => {
     files.forEach((file, idx, array) => {
       if(file.toString().includes(".jpg") || file.toString().includes(".png") || file.toString().includes(".gif")) {
-        pics.push(`http://${req.headers.host}/${file.toString()}`);
+        pics.push(`https://${req.headers.host}/sx/${file.toString()}`);
         if (idx === array.length - 1){ 
-          res.render("gallery", {pictures: pics})
+          res.render(__dirname + "/views/gallery.ejs", {pictures: pics})
           return res.end(); 
         }
       }

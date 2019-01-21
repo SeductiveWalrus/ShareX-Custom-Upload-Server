@@ -9,6 +9,7 @@ let https = require("https");
 
 //Express
 let app = express();
+app.set("view engine", "ejs");
 
 //File System
 let files = fs.readdirSync(__dirname + "/data");
