@@ -15,18 +15,6 @@ const md = new Remarkable("full", {
   typographer: true
 })
 
-// APP SETTINGS
-app.set("view engine", "ejs");
-app.use(bodyParser.text())
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("./uploads/", {
-  extensions: c.admin.allowed
-}))
-app.use(express.static("./pages/", {
-  extensions: [ "html", "css" ],
-}))
-
 // DISCORD BOT SETUP
 let monitorChannel = null
 if(c.discordToken && c.discordToken !== undefined && c.discrdToken !== null) {

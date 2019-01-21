@@ -47,9 +47,19 @@ app.use((req, res, next) =>{
         res.redirect('https://' + req.headers.host + req.url);
     }
 });
-app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(bodyParser.text())
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+
+app.use(express.static("./uploads/", {
+  extensions: c.admin.allowed
+}))
+
+app.use(express.static("./pages/", {
+  extensions: [ "html", "css" ],
+}))
 
 //Routing
 app.get("/", (req, res) =>{
