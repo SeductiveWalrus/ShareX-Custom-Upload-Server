@@ -311,15 +311,10 @@ app.post("/api/files", (req, res) => {
   })
 })
 
-app.listen(80, () => {
-  console.log("Server listening on port 80")
-  if(c.discordToken && c.discordToken !== undefined && c.discrdToken !== null) {
-    bot.connect()
-  }
-})
-app.listen(443, () => {
-  console.log("Server listening on port 443")
-})
+if(c.discordToken && c.discordToken !== undefined && c.discordToken !== null) {
+  bot.connect()
+}
+
 function randomToken(number) {
   number = parseInt(number)
   let text = ""
