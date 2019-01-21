@@ -1,0 +1,67 @@
+body{
+    background-image: url("/assets/background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.title{
+    color: rgb(95, 111, 184);
+    display: inline;
+}
+
+.adminForm{
+    text-align: center;
+}
+
+.adminForm h1{
+    color: rgb(95, 111, 184);
+}
+
+.text404{
+    color: rgb(95, 111, 184);
+    top: 40%;
+    left: 40%;
+    position: fixed;
+}
+
+.container{
+    left: 40%;
+    position: fixed;
+    top: 30%;
+    
+}
+
+.urlInput{
+    border-style: solid;
+    border-width: 0.2em; 
+    border-color: rgb(95, 111, 184);
+    width: 30em;
+    height: 1.5em;
+}
+
+.submitButton{
+    border-style: none;
+    height: 1.95em;
+    background-color: rgb(95, 111, 184);
+    color: rgb(46, 53, 82);
+    font-size: 0.85em;
+}
+
+.resultContainer{
+    display: none;
+}
+
+.copyButton{
+    border-style: none;
+    background-color: rgb(95, 111, 184);
+    color: rgb(46, 53, 82);
+    font-size: 0.85em;
+    height: 2.5em;
+    margin-left: 1em; 
+}
+
+.linksDisplay table, th, td{
+    border: 1px solid rgb(46, 53, 82);
+    color: rgb(46, 53, 82);
+    background-color: rgb(95, 111, 184);
+}

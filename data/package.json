@@ -1,0 +1,22 @@
+{
+  "name": "linkshortener",
+  "version": "1.0.0",
+  "description": "Shortens links",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "SeductiveWalrus",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "node-datetime": "^2.0.6",
+    "url-regex": "^4.1.1",
+    "eris": "^0.8.4",
+    "formidable": "^1.1.1",
+    "path": "^0.12.7",
+    "remarkable": "^1.7.1",
+    "ejs": "^2.6.1"
+  }
+}
