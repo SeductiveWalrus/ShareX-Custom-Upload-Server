@@ -155,8 +155,8 @@ router.post("/short", (req, res) => {
       console.log(req.body.URL)
       stream.write(`<meta http-equiv="refresh" content="0;URL='${req.body.URL}'" />`);
       stream.end();
-      if(monitorChannel !== null) bot.createMessage(monitorChannel, `\`\`\`MARKDOWN\n[NEW][SHORT URL]\n[URL](${url})\n[NEW](${req.headers.host}/${fileName})\n[IP](${userIP})\n\`\`\``)
-      res.redirect(`/short?success=http://${req.headers.host}/sx/${fileName}`);
+      if(monitorChannel !== null) bot.createMessage(monitorChannel, `\`\`\`MARKDOWN\n[NEW][SHORT URL]\n[URL](${req.body.URL})\n[NEW](${req.headers.host}/${fileName})\n[IP](${req.headers["x-forwarded-for"] || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress})\n\`\`\``)
+      res.redirect(`/short?success=http://${req.headers.host}/${fileName}`);
       return res.end();
     });
 });
@@ -173,7 +173,7 @@ router.post("/gallery", (req, res) => {
   fs.readdir(__dirname + "/uploads/", (err, files) => {
     files.forEach((file, idx, array) => {
       if(file.toString().includes(".jpg") || file.toString().includes(".png") || file.toString().includes(".gif")) {
-        pics.push(`https://${req.headers.host}//${file.toString()}`);
+        pics.push(`https://${req.headers.host}/${file.toString()}`);
         if (idx === array.length - 1){ 
           res.render(__dirname + "/views/gallery.ejs", {pictures: pics})
           return res.end(); 
