@@ -54,11 +54,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.use(express.static("./uploads/", {
+app.use(express.static("./sx/uploads/", {
   extensions: require("./sx/config.json").admin.allowed
 }))
 
-app.use(express.static("./pages/", {
+app.use(express.static("./sx/pages/", {
   extensions: [ "html", "css" ],
 }))
 
